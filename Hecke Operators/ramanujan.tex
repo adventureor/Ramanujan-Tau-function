@@ -1,0 +1,158 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,mathtools}
+\usepackage{amsfonts,booktabs,mathrsfs}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\begin{document}
+\title{Ramanujan $\tau$-Functions}
+\author{Yu Xiong}
+\maketitle
+\begin{definition}
+    For any $A \in GL(2,\mathbb{R})$, the \textcolor{blue}{slash operator} defined on $f:\mathcal{H}\to \mathbb{C}$ is
+    \[
+        f|_kA(z)=(\text{det}(A))^{k/2}j_A(z)^{-k}f(Az),
+    \] we have $j_A(z)=cz+d$, if $A=\begin{pmatrix}
+        a&b\\
+        c&d
+    \end{pmatrix}$.
+\end{definition}
+\begin{definition}
+    \[\Delta_n:=\left\{\begin{pmatrix}
+        a&b\\
+        0&d
+    \end{pmatrix}\big| ad=n, 0\leq b < d\right\}.\]
+\end{definition}
+\begin{lemma}
+    There is a one to one correspondence \[\Delta_n\times SL(2,\mathbb{Z})\leftrightarrow  SL(2,\mathbb{Z}) \times \Delta_n.\] That is for any $\rho \in \Delta_n$, $\tau \in SL(2,\mathbb{Z})$, there exist unique $\tau'\in \Gamma,\rho' \in \Delta_n$, such that $\rho \tau =\tau' \rho'$.
+\end{lemma}
+\begin{proof}
+    If $\rho=\begin{pmatrix}
+        a&b\\
+        0&d
+    \end{pmatrix} \in \Delta_n$ and $\tau=\begin{pmatrix}
+        \alpha&*\\
+        \gamma&\delta
+    \end{pmatrix} \in SL(2,\mathbb{Z})$, we want to find $\tau'= \begin{pmatrix}
+        \alpha'&*\\
+        \gamma'&\delta'
+    \end{pmatrix} \in SL(2,\mathbb{Z})$ and $\rho'\begin{pmatrix}
+        a'&b'\\
+        0&d'
+    \end{pmatrix} \in \Delta_n$ such that $\rho \tau =\tau' \rho'$. This is we want to solve:\[
+    \begin{pmatrix}
+        a&b\\
+        0&d
+    \end{pmatrix}
+    \begin{pmatrix}
+        \alpha&*\\
+        \gamma&\delta
+    \end{pmatrix}=
+    \begin{pmatrix}
+        \alpha'&*\\
+        \gamma'&\delta'
+    \end{pmatrix}
+    \begin{pmatrix}
+        a'&b'\\
+        0&d'
+    \end{pmatrix}.
+    \]
+    This is \[
+    \begin{pmatrix}
+        a\alpha+b\gamma&*\\
+        d\gamma&d\delta
+    \end{pmatrix}=
+    \begin{pmatrix}
+        a'\alpha'&*\\
+        a'\gamma'&b'\gamma'+d'\delta'
+    \end{pmatrix},
+    \]
+    and this is equal to
+    \begin{equation*}
+        \begin{cases}
+            a'\alpha'&=a\alpha+b\gamma;\\
+            a'\gamma'&=d\gamma;\\
+            b'\gamma'+d'\delta'&=d\delta.
+        \end{cases}
+    \end{equation*}
+    For $\gamma\neq 0$, We can see that $a'\mid a\alpha+b\gamma$ and $a' \mid d\gamma$, so \[(\frac{a\alpha+b\gamma}{a'},\frac{d\gamma}{a'})=(\alpha',\beta').\] We can see that $(\alpha',\beta')=1$, so $a'=(a\alpha+b\gamma,d\gamma)$. In addition, we have \begin{equation}\label{eqn 1}
+        \begin{cases}
+            a'&=(a\alpha+b\gamma,d\gamma);\\
+            d'&=n/(a\alpha+b\gamma,d\gamma);\\
+            \alpha'&=(a\alpha+b\gamma)/(a\alpha+b\gamma,d\gamma);\\
+            \gamma'&=d\gamma/(a\alpha+b\gamma,d\gamma).
+        \end{cases}
+    \end{equation}
+    % We have $\alpha'\delta' \equiv 1 \Mod{|\gamma'|}$, so $\delta'\equiv x \Mod{|\gamma'|}$, for some $x\in\mathbb{Z}$, and we have $\delta'=x+n\gamma'$. We can see that for any $n\in \mathbb{Z}$, we can make $\delta'\alpha'-*\gamma'=1$. So we have $\gamma'b'+d'(x+\gamma' n)=\delta d$, and that is \begin{equation}\label{1}
+    % \gamma'(b'+nd')=\delta d-xd'.
+    % \end{equation}
+    % We can see that $\gamma'\neq 0$, if $\gamma\neq 0$, and if we modulo $|\gamma'|$ for RHS of equation \ref{1}, we will have \[\delta d-xd'\equiv \delta d- d'/\alpha'\equiv \frac{n\alpha\delta+b\gamma\delta d-n}{a\alpha+b\gamma}=0\Mod{|\gamma'|}.\]Hence, we have $b'=\frac{\delta d-xd'}{\gamma'}-nd'$ and taking a suitable $n$, we get the $b'$.\\
+    % If $\gamma=0$, then we have 
+    % \[\begin{pmatrix}
+    %     a&b\\
+    %     0&d
+    % \end{pmatrix}\begin{pmatrix}
+    %     1&u\\
+    %     0&1
+    % \end{pmatrix}=
+    % \begin{pmatrix}
+    %     1&v\\
+    %     0&1
+    % \end{pmatrix}
+    % \begin{pmatrix}
+    %     a&b'\\
+    %     0&d
+    % \end{pmatrix},\]
+    % so we take $b'\equiv au+b\Mod{d}$ and $v=d^{-1}(au+b-dv)$.\\
+    % For surjection, we need some matrices transform.
+    We can see that $a',\alpha',\gamma'$ are positive integers. For $d'$, we have \[(a,\gamma)=(a\alpha,\gamma)=(a\alpha+b\gamma,\gamma),\]is a divisor of $a$ due to $(\alpha,\gamma)=1$, so we have $(a\alpha+b\gamma,d\gamma)\mid ad$ and $d$ is an integer. What we need is prove \begin{equation}\label{eqn 2}
+        (\gamma',d')\mid d\delta,
+    \end{equation} and we will get a unique $0 \leq b'<d'$ and $\delta'$ from Bezout's theorem. From equation \ref{eqn 1}, we have $(\gamma',d')=(ad,d\gamma)/(a\alpha+b\gamma,d\gamma)$, and proving \ref{eqn 2} is equal to prove \[(a,\gamma)\mid \delta(a\alpha+b\gamma,d\gamma).\] But this is from $(a,\gamma)\mid (a\alpha+b\gamma)$ and $(a,\gamma)\mid \gamma$.
+
+    If $\gamma=0$, then we have 
+    \[\begin{pmatrix}
+        a&b\\
+        0&d
+    \end{pmatrix}\begin{pmatrix}
+        1&u\\
+        0&1
+    \end{pmatrix}=
+    \begin{pmatrix}
+        1&v\\
+        0&1
+    \end{pmatrix}
+    \begin{pmatrix}
+        a&b'\\
+        0&d
+    \end{pmatrix},\]
+    so we take $b'\equiv au+b\Mod{d}$ and $v=d^{-1}(au+b-dv)$, and $v$ is an integer for $d\mid (au+b-dv)$.
+
+    For surjection, we need some matrices transform. If we have $\tau'\in \Gamma$, $\rho'\in \Delta_n$, we want to find $\tau$ and $\gamma$. We can assume that $\tau'\rho'=\begin{pmatrix}
+        x&y\\
+        z&w
+    \end{pmatrix}$, where $xw-yz=n$. Then we have 
+    \[
+    \begin{pmatrix}
+        x&y\\
+        z&w
+    \end{pmatrix}
+    \begin{pmatrix}
+        w/(z,w)&*\\
+        -z/(z,w)&*
+    \end{pmatrix}=
+    \begin{pmatrix}
+        *&*\\
+        0&*
+    \end{pmatrix}.
+    \]With a matrix like $\begin{pmatrix}
+        1&n\\
+        0&1
+    \end{pmatrix}$ we will get the surjection.
+\end{proof}
+\end{document}

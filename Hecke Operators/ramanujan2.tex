@@ -1,0 +1,134 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,mathtools}
+\usepackage{amsfonts,booktabs,mathrsfs}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\begin{document}
+\title{Ramanujan $\tau$-Functions}
+\author{Xiong Yu}
+\maketitle
+\begin{definition}\label{def 1}
+    Let $\chi:\mathbb{Z}\to\mathbb{C}$, and $\chi(ab)=\chi(a)\chi(b)$, for any $(a,b)\in \mathbb{Z}^2$. If $n\geq 1$, we define \textcolor{blue}{Hecke operators} $T_n$ on $f:\mathcal{H}\to \mathbb{C}$ to be
+    \[T_nf:=\frac{1}{n}\sum_{ad=n}\chi(a)a^k\sum_{b\Mod{d}}f(\frac{a\tau+b}{d}).\]
+\end{definition}
+\begin{theorem}
+    For any $m,n\geq 1$, we have \[T_mT_nf=\sum_{d\mid (m,n)}\chi(d)d^{k-1}T_{\frac{mn}{d^2}}f\]
+\end{theorem}
+\begin{proof}
+    From Definition \ref{def 1}, we have 
+    \begin{equation}\label{eqn 1}
+        \begin{aligned}
+            &mnT_mT_nf(\tau)\\
+            &=\sum_{\substack{a_1d_1=m\\a_2d_2=n}}\chi(a_1a_2)(a_1a_2)^k \sum_{\substack{b_1\Mod{d_1}\\b_2\Mod{d_2}}}f\left(\begin{pmatrix}
+            a_1&b_1\\
+            0&d_1
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_2&b_2\\
+            0&d_2
+        \end{pmatrix}\tau\right)\\
+        &=\sum_{d\mid (m,n)}\sum_{\substack{a_1d_1=m\\a_2d_2=n\\(a_1,d_2)=d}}\chi(a_1a_2)(a_1a_2)^k \sum_{\substack{b_1\Mod{d_1}\\b_2\Mod{d_2}}}f\left(\begin{pmatrix}
+            a_1&b_1\\
+            0&d_1
+        \end{pmatrix}
+        \begin{pmatrix}
+            a_2&b_2\\
+            0&d_2
+        \end{pmatrix}\tau\right)\\
+        =&\sum_{d\mid (m,n)}\chi(d)d^k\sum_{\substack{a_1'd_1=m/d\\a_2d_2'=n/d\\(a_1',d_2')=1}}\chi(a_1'a_2)(a_1'a_2)^k \sum_{\substack{b_1\Mod{d_1}\\b_2\Mod{d d_2'}}}f\left(\begin{pmatrix}
+            da_1'a_2&d(a_1'b_2+b_1d_2')\\
+            0&dd_1d_2'
+        \end{pmatrix}\tau\right).
+        \end{aligned}
+    \end{equation}
+    We can see that for any $a\in \mathbb{R}$ and $\gamma\in SL(2,\mathbb{Z})$, we have $f(a\gamma\tau)=f(\gamma\tau)$, so \[f\left(\begin{pmatrix}
+            da_1'a_2&d(a_1'b_2+b_1d_2')\\
+            0&dd_1d_2'
+        \end{pmatrix}\tau\right)=f\left(\begin{pmatrix}
+            a_1'a_2&a_1'b_2+b_1d_2'\\
+            0&d_1d_2'
+        \end{pmatrix}\tau\right).\]
+
+    I claim that for fixed $a_1',a_2,d_1,d_2'$ and $(a_1',d_2')=1$, if $b_1$ runs over $\Mod{d_1}$ and $b_2$ runs over $\Mod{d_2'}$, then we have $a_1'b_2+b_1d_2'$ runs over $\Mod{d_1d_2'}$ one times. 
+
+    $(b_1,b_2)$ has $d_1d_2'$ ways to take, so we just need to show that taking different $(b_1^*,b_2^*)$ we have $a_1'b_2+b_1d_2'\not\equiv a_1'b_2^*+b_1^*d_2'\Mod{d_1d_2'}$. In fact, if they are equal, we have $a_1'(b_2-b_2^*)\equiv d_2'(b_1^*-b_1) \Mod{d_1d_2'}$, so we have $d_2'\mid a_1'(b_2-b_2^*)$. But $(a_1',d_2')=1$, so $b_2\equiv b_2^*\Mod{d_2'}$. So we prove the claim.
+
+    So we have \begin{equation*}
+        \sum_{\substack{b_1\Mod{d_1}\\b_2\Mod{d d_2'}}}f\left(\begin{pmatrix}
+            a_1'a_2&a_1'b_2+b_1d_2'\\
+            0&d_1d_2'
+        \end{pmatrix}\tau\right)=d\sum_{b \Mod{d_1d_2'}}f\left(\begin{pmatrix}
+            a_1'a_2&b\\
+            0&d_1d_2'
+        \end{pmatrix}\tau\right)
+    \end{equation*}
+    We have
+    \begin{equation*}
+        \begin{aligned}
+        &mnT_mT_n\\
+        &=\sum_{d\mid (m,n)}\chi(d)d^{k+1}\sum_{\substack{a_1'd_1=m/d\\a_2d_2'=n/d\\(a_1',d_2')=1}}\chi(a_1'a_2)(a_1'a_2)^k
+        \sum_{b \Mod{d_1d_2'}}f\left(\begin{pmatrix}
+            a_1'a_2&b\\
+            0&d_1d_2'
+        \end{pmatrix}\tau\right)\\
+        &=\sum_{d\mid (m,n)}\chi(d)d^{k+1}\sum_{ad=\frac{mn}{d^2}}\chi(a)a^k\sum_{b\Mod{d}}f\left(\begin{pmatrix}
+            a&b\\
+            0&d
+        \end{pmatrix}\tau\right)\\
+        &=\sum_{d\mid(m,n)}\chi(d)d^{k+1}T_{\frac{mn}{d^2}}f.
+        \end{aligned}
+    \end{equation*}
+\end{proof}
+Recall that we have 
+\begin{definition}
+    \[\Delta_n:=\left\{\begin{pmatrix}
+        a&b\\
+        0&d
+    \end{pmatrix}\big| ad=n, 0\leq b < d\right\}.\]
+\end{definition}
+\begin{lemma}\label{lem 4}
+    There is a one to one correspondence \[\Delta_n\times SL(2,\mathbb{Z})\leftrightarrow  SL(2,\mathbb{Z}) \times \Delta_n.\] That is for any $\rho \in \Delta_n$, $\tau \in SL(2,\mathbb{Z})$, there exist unique $\tau'\in \Gamma,\rho' \in \Delta_n$, such that $\rho \tau =\tau' \rho'$.
+\end{lemma}
+If we take $\chi(a)=1$ for all $a\in \mathbb{Z}$, we have 
+\begin{equation*}
+    \begin{aligned}
+        T_nf&=\frac{1}{n}\sum_{ad=n}\chi(a)a^k\sum_{b\Mod{d}}f(\frac{a\tau+b}{d})\\
+        &=n^{k-1}\sum_{\rho \in \Delta_n}d^{-k}f(\rho \tau)\text{\qquad \qquad for ad=n}\\
+        &=n^{k/2-1}\sum_{\rho \in \Delta_n}f|_k\rho (\tau).
+    \end{aligned}
+\end{equation*}
+So we have 
+\begin{proposition}
+    $T_n:M_k(\Gamma)\to M_k(\Gamma)$, and if \[f=\sum_{m=0}^{\infty}a(m)e(mz),\] then we have $T_nf(z)=\sum_{m=1}^{\infty}a_n(m)e(mz)$, where\[a_n(m)=\sum_{d\mid (m,n)}d^{k-1}a(mnd^{-2}).\]
+\end{proposition}
+\begin{proof}
+    From Lemma \ref{lem 4}, we have 
+    \begin{equation*}
+        \begin{aligned}
+            T_nf|_k\gamma&=n^{k/2-1}\sum_{\rho\in \Delta_n}f|_k\rho\gamma(\tau)\\
+            &=n^{k/2-1}\sum_{\rho'\in \Delta_n}f|_k\gamma'\rho'(\tau)\\
+            &=T_nf.
+        \end{aligned}
+    \end{equation*}
+    For the Fourier expansion, we have 
+    \begin{equation*}
+        \begin{aligned}
+            T_nf(z)&=\frac{1}{n}\sum_{ad=n}a^k\sum_{0\leq b <d}f(\frac{az+b}{d})\\
+            &=\frac{1}{n}\sum_{ad=n}a^k\sum_{0\leq b <d}\sum_{m=0}^{\infty}a(m)e(\frac{amz+bm}{d})\\
+            &=\frac{1}{n}\sum_{ad=n}a^k\sum_{m=0}^{\infty}a(m)\sum_{0\leq b <d}e(\frac{amz+bm}{d})\\
+            &=\frac{1}{n}\sum_{ad=n}a^kd\sum_{m=0}^{\infty}a(m)e(amz)\\
+            &=\sum_{N=0}^{\infty}\sum_{\substack{ad=n\\am=N}}a^{k-1}a(md)e(Nz).
+        \end{aligned}
+    \end{equation*}
+\end{proof}
+\begin{corollary}
+    We have $\Delta(\tau)=\sum_{n=1}^{\infty}\tau(n)q^n$, and \[\tau(n)\tau(m)=\sum_{d\mid (m,n)}d^{11}\tau(\frac{mn}{d^2}).\]
+\end{corollary}
+\end{document}
