@@ -1,0 +1,76 @@
+\documentclass{article}
+\usepackage{amssymb,amsmath,mathtools}
+\usepackage{amsfonts,booktabs,mathrsfs}
+\usepackage{amsthm}
+\usepackage[dvipsnames]{xcolor}
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=true,
+	linkcolor=cyan,
+	filecolor=blue,      
+	urlcolor=red,
+	citecolor=green,
+}
+\newtheorem{theorem}{Theorem}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{example}[theorem]{Example}
+\newtheorem{corollary}[theorem]{Corollary}
+\newtheorem{lemma}[theorem]{Lemma}
+\newtheorem{proposition}[theorem]{Proposition}
+\newcommand{\Mod}[1]{\ (\mathrm{mod}\ #1)}
+\begin{document}
+\title{Ramanujan $\tau$-Functions}
+\author{Yu Xiong}
+\maketitle
+In this part, I will introduce the following theorem, whose proof is from \href{https://math.stackexchange.com/q/84426}{Math Stackexchange}, and there are some corollaries giving some congruence of $\tau$ functions, which is from \cite{MR21951}.
+\begin{theorem}\label{Ramanathan}
+    \[(1-n)\tau(n)=24\sum_{j=1}^{n-1}\sigma(j)\tau(n-j).\]
+\end{theorem}
+\begin{definition}
+    $\delta_k$ is an operator from holomorphic functions to holomorphic functions. \[\delta_k(f):=12\theta (f)-kE_2f,\] where $\theta(f):=q\frac{df}{dq}$, $q=e^{2\pi i \tau}$ and \[E_2(\tau)=1-2\sum_{n=1}^{\infty}\sigma q^n.\]
+\end{definition}
+\begin{lemma}
+    $\delta_k: M_k(\Gamma)\to M_{k+2}(\Gamma)$ and $\delta_k(S_k(\Gamma))\subset{S_{k+2}(\Gamma)}$.
+\end{lemma}
+\begin{proof}
+    To prove $\delta_k(M_k(\Gamma))\subset M_{k+2}(\Gamma)$, we just need to show for any $f\in M_k(\Gamma)$ and $\alpha\in \Gamma$, we have 
+    \begin{equation}\label{*}
+        (\delta_kf)|_{k+2}\alpha=\delta_kf.
+    \end{equation}
+    We can see that $(\delta_kf)|_{k+2}\alpha=12(\theta_kf)|_{k+2}\alpha-kE_2|_2\alpha f|_k\alpha$. Firstly, we have $\theta (f)=q\frac{df}{dq}=\frac{1}{2\pi i}f'(\tau)$, so we have 
+    \[\theta (f)|_{k+2}\alpha=\frac{1}{2\pi i}f'|_{k+2}\alpha=\frac{1}{2\pi i}(c\tau+d)^{-k-2}f'(\alpha\tau).\]
+    We have $f(\alpha\tau)=(c\tau+d)^{k}f(\tau)$, and taking the derivative of the equation we have $\frac{1}{(c\tau+d)^2}f'(\alpha\tau)=kc(c\tau+d)^{k-1}f(\tau)+(c\tau+d)^kf'(\tau)$. So we have 
+    \[f'(\alpha\tau)=kc(c\tau+d)^{k+1}f(\tau)+(c\tau+d)^{k+2}f'(\tau).\]
+    Taking the $f'(\alpha\tau)$ to $(\theta_kf)|_{k+2}\alpha$, we have 
+    \begin{equation*}
+        \begin{aligned}
+            (\theta_kf)|_{k+2}\alpha&=\frac{1}{2\pi i}(c\tau+d)^{-k-2}f'(\alpha\tau)\\
+            &=\frac{1}{2\pi i}\left(\frac{kc}{c\tau+d}f(\tau)+f'(\tau)\right)\\
+            &=\frac{kcf(\tau)}{2\pi i(c\tau+d)}+\theta f.
+        \end{aligned}
+    \end{equation*}
+    So we have 
+    \begin{equation*}
+        \begin{aligned}
+            (\delta_kf)|_{k+2}\alpha-\delta_kf&=12(\theta_kf)|_{k+2}\alpha-kE_2|_2\alpha f-\left(12\theta (f)-kE_2f\right)\\
+            &=kf(\tau)\left(\frac{12c}{2\pi i(c\tau+d)}-E_2|_2\alpha+E_2\right)\\
+            &=0.
+        \end{aligned}
+    \end{equation*}
+    Last equation is from $E_2|_2\alpha=E_2+\frac{12c}{2\pi i(c\tau+d)}$.
+\end{proof}
+\begin{proof}[Proof of Theorem \ref{Ramanathan}]
+    We have $\delta_k\Delta\in S_{14}(\Gamma)=0$, so $\delta_k\Delta=0$. So we have 
+    \[\delta_k\Delta=12\sum_{n=1}^{\infty}n\tau(n)q^n-12E_2\Delta=0.\]
+    Hence, we have
+    \begin{equation*}
+        \begin{aligned}
+            \sum_{n=1}^{\infty}n\tau(n)q^n&=\left(1-24\sum_{n=1}^{\infty}\sigma(n)q^n\right)\left(\sum_{n=1}^{\infty}\tau(n)q^n\right)\\
+            &=\sum_{n=1}^{\infty}\tau(n)q^n-24\sum_{n=1}^{\infty}\left(\sum_{m=1}^{n-1}\tau(m)\sigma(n-m)q^n\right).
+        \end{aligned}
+    \end{equation*}
+\end{proof}
+\bibliographystyle{plain}
+% \bibliographystyle{gbt7714-numerical}
+\bibliography{ref.bib}
+\end{document}
